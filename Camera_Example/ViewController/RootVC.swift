@@ -80,12 +80,13 @@ class RootVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.initView()
+    self.initCarema()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     capturePreviewView.addObserver(self, forKeyPath: #keyPath(UIView.bounds), options: .new, context: nil) // 監控排版變化
-    initCarema()
+    
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -182,6 +183,7 @@ class RootVC: UIViewController {
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     if let objectView = object as? UIView, objectView === self.capturePreviewView, keyPath == #keyPath(UIView.bounds) {
+      print(objectView.bounds)
       self.caremaHelper.previewLayer?.frame = objectView.bounds
     }
   }
